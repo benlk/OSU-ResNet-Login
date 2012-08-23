@@ -36,7 +36,7 @@ def get_login_url():
     #See if we're logged in already
     #If we are, this will go through to xkcd, which returns a 404
     #If we aren't this will let us find the login url
-    conn = urllib.urlopen("http:/209.114.34.184/404")
+    conn = urllib.urlopen("http://www.google.com/404")
     code = conn.getcode()
     data = conn.read()
     conn.close()
