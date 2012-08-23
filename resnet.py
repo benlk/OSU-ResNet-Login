@@ -23,6 +23,7 @@ import urllib
 import re
 import getpass
 import time 
+import fish
 
 def get_login_url():
     """Returns login url.
@@ -129,6 +130,7 @@ if __name__ == "__main__":
 	while True:
 		time.sleep(5)
 	#	print "YAY"
+		fish.animate()
 		url = get_login_url()
 		if url is None:
 			pass
