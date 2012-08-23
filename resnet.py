@@ -102,16 +102,14 @@ def get_captive_form(url):
     #MODIFY THIS PART
 
     #Put in your name.number inside the quotes
-    params["username"] = "name.1"
-
-
-    #params["password"] = getpass.getpass("OSU Login Password: ")
+    params["username"] = "keith.146"
+    params["password"] = getpass.getpass("OSU Login Password: ")
 
     #If you want, you can comment the above line and uncomment the code below
     #Then put your password in plaintext in the quotes, and you won't have to enter it
     #Of course, then anyone could just read your password if they look in this file
 
-    params["password"] = "your password in plaintext here"
+    # params["password"] = "your password in plaintext here"
 
     return (loginurl, params)
 
