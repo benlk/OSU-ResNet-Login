@@ -105,7 +105,7 @@ def get_captive_form(url):
 
     #Put in your name.number inside the quotes
     params["username"] = "keith.146"
-    params["password"] = getpass.getpass("OSU Login Password: ")
+    params["password"] = gotpass
 
     #If you want, you can comment the above line and uncomment the code below
     #Then put your password in plaintext in the quotes, and you won't have to enter it
@@ -127,6 +127,7 @@ def do_login(loginurl, params):
 
 
 if __name__ == "__main__":
+	gotpass = getpass.getpass("OSU Login Password: ")
 	while True:
 		time.sleep(5)
 	#	print "YAY"
