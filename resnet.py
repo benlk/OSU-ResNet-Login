@@ -138,4 +138,4 @@ if __name__ == "__main__":
 		else:
 			(loginurl, params) = get_captive_form(url)
 			do_login(loginurl, params)
-
+			print "Logged in!"
