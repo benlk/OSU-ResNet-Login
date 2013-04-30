@@ -18,7 +18,7 @@
 #LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 #OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 #THE SOFTWARE.
-
+#
 import urllib
 import re
 import getpass
@@ -35,9 +35,11 @@ def get_login_url():
 
 
     #See if we're logged in already
-    #If we are, this will go through to xkcd, which returns a 404
+    #If we are, this will go through to a server which returns a 404
     #If we aren't this will let us find the login url
-    conn = urllib.urlopen("http://www.google.com/404")
+    conn = urllib.urlopen("http://www.embolalia.net/404")
+        #How do I catch this error?
+	# IOError: ('http protocol error', 0, 'got a bad status line', None)
     code = conn.getcode()
     data = conn.read()
     conn.close()
@@ -48,6 +50,7 @@ def get_login_url():
         #Assume it ends with a single quote, double quote, or space
         #As of April 2011, this finds a
         #<META http-equiv='refresh' content='url'> tag that works perfectly
+	#As of April 2013, that's still true.
         url = re.search("https://[^ '\"]+", data)
         if url is None:
             #No result found - time to die
@@ -128,14 +131,26 @@ def do_login(loginurl, params):
 
 if __name__ == "__main__":
 	gotpass = getpass.getpass("OSU Login Password: ")
+	retrywait = 0.5
 	while True:
-		time.sleep(5)
-	#	print "YAY"
-		fish.animate()
-		url = get_login_url()
-		if url is None:
-			pass
-		else:
-			(loginurl, params) = get_captive_form(url)
-			do_login(loginurl, params)
-			print "Logged in!"
+		try:
+			time.sleep(5)
+			#	print "YAY"
+			fish.animate()
+			url = get_login_url()
+			if url is None:
+				pass
+				retrywait = 0.5
+			else:
+				(loginurl, params) = get_captive_form(url)
+				do_login(loginurl, params)
+				print "Logged in!"
+				retrywait = 0.5
+		except IOError:
+			retrywait = retrywait * 1.5 
+#	need to figure out a way tin increase retry times
+#	
+			print "Network unreachable, trying again in" + str(retrywait) + "seconds"
+			time.sleep(retrywait)
+			
+
